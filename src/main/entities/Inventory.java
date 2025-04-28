@@ -9,8 +9,6 @@ public class Inventory {
 
     private final Map<Integer, Queue<Product>> productInventoryMap;
 
-    private Product currentProduct;
-
     public Inventory() {
         productInventoryMap = new HashMap<>();
     }
@@ -26,26 +24,29 @@ public class Inventory {
         }
     }
 
-    public void selectProduct(int productId) throws Exception{
-        this.currentProduct = getProduct(productId);
-    }
-
     public int getProductPrice(int productId) throws Exception {
-        Product product = getProduct(productId);
-        return product == null ? 0 : product.getPrice();
-    }
-
-    public Product getProduct(int productId) {
-        if(productInventoryMap.containsKey(productId)) {
-            return productInventoryMap.get(productId).poll();
+        if(isProductAvailable(productId) && !productInventoryMap.get(productId).isEmpty()) {
+            return productInventoryMap.get(productId).peek().getPrice();
         }
-        else{
-            System.out.println("Product with id: "+productId+" does not exist");
-            return null;
+        else {
+            throw new Exception("Product: "+productId+" does not exist");
         }
     }
 
-    public Product dispenseProduct() throws Exception {
+    public Product getProduct(int productId) throws Exception{
+        if(isProductAvailable(productId)) {
+            return productInventoryMap.get(productId).peek();
+        }
+        else {
+            throw new Exception("Product with id: "+productId+" is not available");
+        }
+    }
+
+    public boolean isProductAvailable(int productId) {
+        return productInventoryMap.containsKey(productId);
+    }
+
+    public Product dispenseProduct(Product currentProduct) throws Exception {
         if(currentProduct == null) {
             throw new Exception("Product is not available...invalid product");
         }
