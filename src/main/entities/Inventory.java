@@ -31,6 +31,15 @@ public class Inventory {
             int price = scanner.nextInt();
             System.out.println("Enter the quantity of the product");
             int quantity = scanner.nextInt();
+            createProductAndStoreInInventory(productName, productId, price, quantity);
+        }
+    }
+
+    private void createProductAndStoreInInventory(String productName, int productId, int price, int quantity) {
+        Product product = new Product(productId, productName, price);
+        while (quantity > 0) {
+            addProduct(product);
+            quantity--;
         }
     }
 
