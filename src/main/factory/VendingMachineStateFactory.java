@@ -10,9 +10,6 @@ public class VendingMachineStateFactory {
         if(VendingMachineStateEnum.ACCEPT_MONEY.equals(vendingMachineStateEnum)) {
             return new AcceptMoneyState();
         }
-        else if(VendingMachineStateEnum.CANCEL.equals(vendingMachineStateEnum)) {
-            return new CancelState();
-        }
         else if(VendingMachineStateEnum.IDLE.equals(vendingMachineStateEnum)) {
             return new IdleState();
         }
@@ -21,9 +18,6 @@ public class VendingMachineStateFactory {
         }
         else if(VendingMachineStateEnum.PRODUCT_SELECT.equals(vendingMachineStateEnum)) {
             return new ProductSelectState();
-        }
-        else if(VendingMachineStateEnum.OUT_OF_STOCK.equals(vendingMachineStateEnum)) {
-            return new OutOfStockState();
         }
         else {
             return null;
